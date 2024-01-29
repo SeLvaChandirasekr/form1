@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form and Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form, table {
+            width: 60%;
+            margin: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <script src="https://app.zenclass.in/sheets/v1/js/zen/suite/bundle.js"></script>
+    <form id="myForm">
+        <h1 id="title">DOM manuplation with forms</h1>
+        <p id="description">Form.</p>
+
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="first-name" required>
+
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last-name" required>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea>
+
+        <label for="pincode">Pincode:</label>
+        <input type="text" id="pincode" name="pincode" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <label for="food">Choice of Food (select at least 2):</label>
+        <select id="food" name="food" multiple required>
+            <option value="pizza">Pizza</option>
+            <option value="burger">Burger</option>
+            <option value="pasta">Pasta</option>
+            <option value="salad">Salad</option>
+            <option value="iceCream">Ice Cream</option>
+        </select>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" required>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="reset">Reset</button>
+    </form>
+
+    <div>
+        <table id="dataTable">
+            <!-- Your table structure -->
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Pincode</th>
+                    <th>Gender</th>
+                    <th>Food</th>
+                    <th>State</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Your existing submitForm function
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const address = document.getElementById('address').value;
+            const pincode = document.getElementById('pincode').value;
+            const gender = document.getElementById('gender').value;
+            const foodOptions = document.getElementById('food').selectedOptions;
+            const state = document.getElementById('state').value;
+            const country = document.getElementById('country').value;
+
+            // Validate at least 2 food options are selected
+            if (foodOptions.length < 2) {
+                alert("Please select at least 2 food options.");
+                return;
+            }
+
+            // Create a new table row
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${firstName}</td>
+                <td>${lastName}</td>
+                <td>${pincode}</td>
+                <td>${gender}</td>
+                <td>${Array.from(foodOptions).map(option => option.value).join(',')}</td>
+                <td>${state}</td>
+                <td>${country}</td>
+            `;
+
+            // Append the new row to the table
+            document.getElementById('dataTable').getElementsByTagName('tbody')[0].appendChild(newRow);
+
+            // Clear form fields
+            document.getElementById('myForm').reset();
+        }
+    </script>
+</body>
+</html>
